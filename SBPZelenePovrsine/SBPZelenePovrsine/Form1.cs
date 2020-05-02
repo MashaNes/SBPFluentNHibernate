@@ -83,5 +83,81 @@ namespace SBPZelenePovrsine
                 MessageBox.Show(exc.Message);
             }
         }
+
+        private void btnGetRadnici_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+
+                IList<Radnik> radnici = s.QueryOver<Radnik>().List<Radnik>();
+
+                string ispis = "";
+
+                foreach (Radnik r in radnici)
+                {
+                    ispis += r.BrRadneKnjizice + ": " + r.MBr + ", " + r.Ime + " (" + r.ImeRoditelja + ") " +
+                        r.Prezime + ", " + r.Adresa + ", " + r.StrucnaSprema + ", ";
+
+                    
+                    if (r.GetType() == typeof(RadnikOdrzavanjeZelenila))
+                    {
+                        RadnikOdrzavanjeZelenila radnikZelenilo = (RadnikOdrzavanjeZelenila)r;
+                        ispis += "radnik na održavanju zelenila.\n\n";
+                    }
+                    else if (r.GetType() == typeof(RadnikOdrzavanjeHigijene))
+                    {
+                        RadnikOdrzavanjeHigijene radnikHigijena = (RadnikOdrzavanjeHigijene)r;
+                        ispis += "radnik na održavanju higijene.\n\n";
+                    }
+                    else if (r.GetType() == typeof(RadnikOdrzavanjeObjekataUParku))
+                    {
+                        RadnikOdrzavanjeObjekataUParku rPark = (RadnikOdrzavanjeObjekataUParku)r;
+                        ispis += "radnik na održavanju objekata u parku.\n\n";
+                    }
+                    
+
+                }
+
+                MessageBox.Show(ispis);
+
+                s.Close();
+            }
+
+            catch(Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
+
+        }
+
+        private void btnRadniciCreate_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+
+                RadnikOdrzavanjeHigijene radnikHigijena = new RadnikOdrzavanjeHigijene();
+                radnikHigijena.BrRadneKnjizice = "213";
+                radnikHigijena.MBr = "1402988730891";
+                radnikHigijena.Ime = "Kosta";
+                radnikHigijena.ImeRoditelja = "Stevan";
+                radnikHigijena.Prezime = "Kostić";
+                radnikHigijena.Adresa = "Bulevar Nemanjića 12/7, Niš";
+                radnikHigijena.DatumRodjenja = new DateTime(1988, 2, 14).Date;
+                radnikHigijena.StrucnaSprema = "Četvrti stepen";
+
+                s.Save(radnikHigijena);
+                s.Flush();
+                s.Close();
+
+                MessageBox.Show("Radnik uspešno sačuvan!");
+            }
+            
+            catch(Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
+        }
     }
 }

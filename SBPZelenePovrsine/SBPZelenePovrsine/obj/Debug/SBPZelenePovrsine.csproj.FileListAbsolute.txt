@@ -21,3 +21,27 @@ C:\Users\XPC\source\repos\SBPZelenePovrsine\SBPZelenePovrsine\obj\Debug\SBPZelen
 C:\Users\XPC\source\repos\SBPZelenePovrsine\SBPZelenePovrsine\obj\Debug\SBPZelenePovrsine.csproj.CopyComplete
 C:\Users\XPC\source\repos\SBPZelenePovrsine\SBPZelenePovrsine\obj\Debug\SBPZelenePovrsine.exe
 C:\Users\XPC\source\repos\SBPZelenePovrsine\SBPZelenePovrsine\obj\Debug\SBPZelenePovrsine.pdb
+C:\Users\PetarTrifunovic\Desktop\6. semestar\Sistemi baza podataka - novo\Zelene površine - VS projekat\SBPFluentNHibernate\SBPZelenePovrsine\SBPZelenePovrsine\bin\Debug\SBPZelenePovrsine.exe.config
+C:\Users\PetarTrifunovic\Desktop\6. semestar\Sistemi baza podataka - novo\Zelene površine - VS projekat\SBPFluentNHibernate\SBPZelenePovrsine\SBPZelenePovrsine\bin\Debug\SBPZelenePovrsine.exe
+C:\Users\PetarTrifunovic\Desktop\6. semestar\Sistemi baza podataka - novo\Zelene površine - VS projekat\SBPFluentNHibernate\SBPZelenePovrsine\SBPZelenePovrsine\bin\Debug\SBPZelenePovrsine.pdb
+C:\Users\PetarTrifunovic\Desktop\6. semestar\Sistemi baza podataka - novo\Zelene površine - VS projekat\SBPFluentNHibernate\SBPZelenePovrsine\SBPZelenePovrsine\bin\Debug\Antlr3.Runtime.dll
+C:\Users\PetarTrifunovic\Desktop\6. semestar\Sistemi baza podataka - novo\Zelene površine - VS projekat\SBPFluentNHibernate\SBPZelenePovrsine\SBPZelenePovrsine\bin\Debug\FluentNHibernate.dll
+C:\Users\PetarTrifunovic\Desktop\6. semestar\Sistemi baza podataka - novo\Zelene površine - VS projekat\SBPFluentNHibernate\SBPZelenePovrsine\SBPZelenePovrsine\bin\Debug\Iesi.Collections.dll
+C:\Users\PetarTrifunovic\Desktop\6. semestar\Sistemi baza podataka - novo\Zelene površine - VS projekat\SBPFluentNHibernate\SBPZelenePovrsine\SBPZelenePovrsine\bin\Debug\NHibernate.dll
+C:\Users\PetarTrifunovic\Desktop\6. semestar\Sistemi baza podataka - novo\Zelene površine - VS projekat\SBPFluentNHibernate\SBPZelenePovrsine\SBPZelenePovrsine\bin\Debug\Oracle.ManagedDataAccess.dll
+C:\Users\PetarTrifunovic\Desktop\6. semestar\Sistemi baza podataka - novo\Zelene površine - VS projekat\SBPFluentNHibernate\SBPZelenePovrsine\SBPZelenePovrsine\bin\Debug\Remotion.Linq.dll
+C:\Users\PetarTrifunovic\Desktop\6. semestar\Sistemi baza podataka - novo\Zelene površine - VS projekat\SBPFluentNHibernate\SBPZelenePovrsine\SBPZelenePovrsine\bin\Debug\Remotion.Linq.EagerFetching.dll
+C:\Users\PetarTrifunovic\Desktop\6. semestar\Sistemi baza podataka - novo\Zelene površine - VS projekat\SBPFluentNHibernate\SBPZelenePovrsine\SBPZelenePovrsine\bin\Debug\Antlr3.Runtime.xml
+C:\Users\PetarTrifunovic\Desktop\6. semestar\Sistemi baza podataka - novo\Zelene površine - VS projekat\SBPFluentNHibernate\SBPZelenePovrsine\SBPZelenePovrsine\bin\Debug\FluentNHibernate.xml
+C:\Users\PetarTrifunovic\Desktop\6. semestar\Sistemi baza podataka - novo\Zelene površine - VS projekat\SBPFluentNHibernate\SBPZelenePovrsine\SBPZelenePovrsine\bin\Debug\Iesi.Collections.xml
+C:\Users\PetarTrifunovic\Desktop\6. semestar\Sistemi baza podataka - novo\Zelene površine - VS projekat\SBPFluentNHibernate\SBPZelenePovrsine\SBPZelenePovrsine\bin\Debug\NHibernate.xml
+C:\Users\PetarTrifunovic\Desktop\6. semestar\Sistemi baza podataka - novo\Zelene površine - VS projekat\SBPFluentNHibernate\SBPZelenePovrsine\SBPZelenePovrsine\bin\Debug\Remotion.Linq.xml
+C:\Users\PetarTrifunovic\Desktop\6. semestar\Sistemi baza podataka - novo\Zelene površine - VS projekat\SBPFluentNHibernate\SBPZelenePovrsine\SBPZelenePovrsine\bin\Debug\Remotion.Linq.EagerFetching.xml
+C:\Users\PetarTrifunovic\Desktop\6. semestar\Sistemi baza podataka - novo\Zelene površine - VS projekat\SBPFluentNHibernate\SBPZelenePovrsine\SBPZelenePovrsine\obj\Debug\SBPZelenePovrsine.csprojAssemblyReference.cache
+C:\Users\PetarTrifunovic\Desktop\6. semestar\Sistemi baza podataka - novo\Zelene površine - VS projekat\SBPFluentNHibernate\SBPZelenePovrsine\SBPZelenePovrsine\obj\Debug\SBPZelenePovrsine.Form1.resources
+C:\Users\PetarTrifunovic\Desktop\6. semestar\Sistemi baza podataka - novo\Zelene površine - VS projekat\SBPFluentNHibernate\SBPZelenePovrsine\SBPZelenePovrsine\obj\Debug\SBPZelenePovrsine.Properties.Resources.resources
+C:\Users\PetarTrifunovic\Desktop\6. semestar\Sistemi baza podataka - novo\Zelene površine - VS projekat\SBPFluentNHibernate\SBPZelenePovrsine\SBPZelenePovrsine\obj\Debug\SBPZelenePovrsine.csproj.GenerateResource.cache
+C:\Users\PetarTrifunovic\Desktop\6. semestar\Sistemi baza podataka - novo\Zelene površine - VS projekat\SBPFluentNHibernate\SBPZelenePovrsine\SBPZelenePovrsine\obj\Debug\SBPZelenePovrsine.csproj.CoreCompileInputs.cache
+C:\Users\PetarTrifunovic\Desktop\6. semestar\Sistemi baza podataka - novo\Zelene površine - VS projekat\SBPFluentNHibernate\SBPZelenePovrsine\SBPZelenePovrsine\obj\Debug\SBPZelenePovrsine.csproj.CopyComplete
+C:\Users\PetarTrifunovic\Desktop\6. semestar\Sistemi baza podataka - novo\Zelene površine - VS projekat\SBPFluentNHibernate\SBPZelenePovrsine\SBPZelenePovrsine\obj\Debug\SBPZelenePovrsine.exe
+C:\Users\PetarTrifunovic\Desktop\6. semestar\Sistemi baza podataka - novo\Zelene površine - VS projekat\SBPFluentNHibernate\SBPZelenePovrsine\SBPZelenePovrsine\obj\Debug\SBPZelenePovrsine.pdb
