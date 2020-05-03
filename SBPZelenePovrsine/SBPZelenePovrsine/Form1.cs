@@ -36,6 +36,7 @@ namespace SBPZelenePovrsine
                 s.Save(travnjak);
                 s.Flush();
                 s.Close();
+                MessageBox.Show("Zelena površina uspešno sačuvana");
             }
             catch(Exception exc)
             {
@@ -71,7 +72,7 @@ namespace SBPZelenePovrsine
                         Park p = (Park)zp;
                         rez += ", " + p.Naziv + ", " + p.Povrsina;
                     }
-                    rez += "\n";
+                    rez += "\n\n";
                 }
 
                 MessageBox.Show(rez);
@@ -154,6 +155,106 @@ namespace SBPZelenePovrsine
                 MessageBox.Show("Radnik uspešno sačuvan!");
             }
             
+            catch(Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
+        }
+
+        private void btnZelenePovrsineDelete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+
+                Travnjak t = s.Query<Travnjak>()
+                              .Where(travnjak => travnjak.AdresaZgrade == "Ćele kula 10")
+                              .FirstOrDefault();
+                s.Close();
+
+                s = DataLayer.GetSession();
+
+                ZelenaPovrsina z = s.Get<ZelenaPovrsina>(t.Id);
+
+                s.Delete(z);
+                s.Flush();
+                s.Close();
+                MessageBox.Show("Uspešno obrisan travnjak na adresi 'Ćele kula 10'");
+            }
+            catch(Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
+        }
+
+        private void btnRadiUCreate_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+
+                Park p = new Park();
+                p.Naziv = "Park na centralnom trgu";
+                p.Opstina = "Niška Banja";
+                p.TipPovrsine = "Park";
+                p.ZonaUgrozenosti = "Zona niske ugroženosti";
+
+                s.Save(p);
+                s.Flush();
+
+                Radnik r = new RadnikOdrzavanjeHigijene();
+                r.Ime = "Milovan";
+                r.ImeRoditelja = "Stojan";
+                r.Prezime = "Novaković";
+                r.BrRadneKnjizice = "687";
+                r.MBr = "1206978730049";
+                r.Adresa = "Strahinjića Bana 15, Niš";
+                r.DatumRodjenja = new DateTime(1978, 6, 12);
+                r.StrucnaSprema = "Treći stepen";
+
+                s.Save(r);
+                s.Flush();
+
+                RadiU radiU = new RadiU();
+                radiU.DatumOd = new DateTime(2015, 4, 23);
+                radiU.Park = p;
+                radiU.Radnik = r;
+
+                s.Save(radiU);
+                s.Flush();
+                s.Close();
+
+                MessageBox.Show("Stavka 'radi u' uspešno kreirana");
+            }
+            catch(Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
+        }
+
+        private void btnRadiUGet_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+                List<RadiU> radi = s.Query<RadiU>()
+                                    .Where(x => x.Radnik.BrRadneKnjizice == "120")
+                                    .OrderBy(x => x.DatumOd)
+                                    .ToList();
+                String ispis = "";
+
+                foreach (RadiU stavka in radi)
+                {
+                    String rez = stavka.DatumOd.ToShortDateString() + " do ";
+                    rez += (stavka.DatumDo == null ? "sada: " : stavka.DatumDo.Value.ToShortDateString() + ": ");
+                    rez += stavka.Park.Naziv + ", " + stavka.Park.Opstina + ", " + stavka.Park.ZonaUgrozenosti;
+                    rez += "\n\n";
+                    ispis += rez;
+                }
+
+                MessageBox.Show(ispis);
+                s.Close();
+            }
             catch(Exception exc)
             {
                 MessageBox.Show(exc.Message);

@@ -14,8 +14,15 @@ namespace SBPZelenePovrsine.Entiteti
         public virtual string ImeRoditelja { get; set; }
         public virtual string Prezime { get; set; }
         public virtual string Adresa { get; set; }
-        public virtual DateTime DatumRodjenja { get; set; }
+        public virtual DateTime? DatumRodjenja { get; set; }
         public virtual string StrucnaSprema { get; set; }
+
+        public virtual IList<RadiU> Parkovi { get; set; }
+
+        public Radnik()
+        {
+            Parkovi = new List<RadiU>();
+        }
     }
 
     public class RadnikOdrzavanjeZelenila: Radnik

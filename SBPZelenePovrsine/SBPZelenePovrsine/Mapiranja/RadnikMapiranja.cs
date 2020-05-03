@@ -18,13 +18,15 @@ namespace SBPZelenePovrsine.Mapiranja
 
             Id(x => x.BrRadneKnjizice, "BR_RADNE_KNJIZICE").GeneratedBy.Assigned();
 
-            Map(x => x.MBr, "MBR"); //Da li treba dodati Unique, radi sigurnosti?
+            Map(x => x.MBr, "MBR"); //Unique je u bazi
             Map(x => x.Ime, "IME");
             Map(x => x.ImeRoditelja, "IME_RODITELJA");
             Map(x => x.Prezime, "PREZIME");
             Map(x => x.Adresa, "ADRESA");
             Map(x => x.DatumRodjenja, "DATUM_RODJENJA");
             Map(x => x.StrucnaSprema, "STRUCNA_SPREMA");
+
+            HasMany(x => x.Parkovi).KeyColumn("RADNIK_BR").LazyLoad().Cascade.All().Inverse();
         }
     }
 

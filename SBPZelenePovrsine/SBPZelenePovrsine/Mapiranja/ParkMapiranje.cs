@@ -17,6 +17,8 @@ namespace SBPZelenePovrsine.Mapiranja
 
             Map(x => x.Povrsina, "POVRSINA");
             Map(x => x.Naziv, "NAZIV");
+
+            HasMany(x => x.Radnici).KeyColumn("PARK_ID").LazyLoad().Cascade.All().Inverse();
         }
     }
 }
