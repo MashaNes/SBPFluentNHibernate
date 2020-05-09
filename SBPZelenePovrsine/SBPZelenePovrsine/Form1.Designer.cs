@@ -35,11 +35,14 @@
             this.btnZelenePovrsineDelete = new System.Windows.Forms.Button();
             this.btnRadiUCreate = new System.Windows.Forms.Button();
             this.btnRadiUGet = new System.Windows.Forms.Button();
+            this.btnJeSefCreate = new System.Windows.Forms.Button();
+            this.btnJeSefGet = new System.Windows.Forms.Button();
+            this.btnRadnikDelete = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnZelenePovrsineCreate
             // 
-            this.btnZelenePovrsineCreate.Location = new System.Drawing.Point(93, 27);
+            this.btnZelenePovrsineCreate.Location = new System.Drawing.Point(26, 27);
             this.btnZelenePovrsineCreate.Name = "btnZelenePovrsineCreate";
             this.btnZelenePovrsineCreate.Size = new System.Drawing.Size(360, 33);
             this.btnZelenePovrsineCreate.TabIndex = 0;
@@ -49,7 +52,7 @@
             // 
             // btnGetZelenePovrsine
             // 
-            this.btnGetZelenePovrsine.Location = new System.Drawing.Point(93, 66);
+            this.btnGetZelenePovrsine.Location = new System.Drawing.Point(26, 66);
             this.btnGetZelenePovrsine.Name = "btnGetZelenePovrsine";
             this.btnGetZelenePovrsine.Size = new System.Drawing.Size(360, 33);
             this.btnGetZelenePovrsine.TabIndex = 1;
@@ -59,7 +62,7 @@
             // 
             // btnGetRadnici
             // 
-            this.btnGetRadnici.Location = new System.Drawing.Point(93, 198);
+            this.btnGetRadnici.Location = new System.Drawing.Point(26, 198);
             this.btnGetRadnici.Name = "btnGetRadnici";
             this.btnGetRadnici.Size = new System.Drawing.Size(360, 33);
             this.btnGetRadnici.TabIndex = 2;
@@ -69,7 +72,7 @@
             // 
             // btnRadniciCreate
             // 
-            this.btnRadniciCreate.Location = new System.Drawing.Point(93, 159);
+            this.btnRadniciCreate.Location = new System.Drawing.Point(26, 159);
             this.btnRadniciCreate.Name = "btnRadniciCreate";
             this.btnRadniciCreate.Size = new System.Drawing.Size(360, 33);
             this.btnRadniciCreate.TabIndex = 3;
@@ -79,7 +82,7 @@
             // 
             // btnZelenePovrsineDelete
             // 
-            this.btnZelenePovrsineDelete.Location = new System.Drawing.Point(93, 105);
+            this.btnZelenePovrsineDelete.Location = new System.Drawing.Point(26, 105);
             this.btnZelenePovrsineDelete.Name = "btnZelenePovrsineDelete";
             this.btnZelenePovrsineDelete.Size = new System.Drawing.Size(360, 33);
             this.btnZelenePovrsineDelete.TabIndex = 4;
@@ -89,7 +92,7 @@
             // 
             // btnRadiUCreate
             // 
-            this.btnRadiUCreate.Location = new System.Drawing.Point(93, 253);
+            this.btnRadiUCreate.Location = new System.Drawing.Point(469, 27);
             this.btnRadiUCreate.Name = "btnRadiUCreate";
             this.btnRadiUCreate.Size = new System.Drawing.Size(360, 33);
             this.btnRadiUCreate.TabIndex = 5;
@@ -99,7 +102,7 @@
             // 
             // btnRadiUGet
             // 
-            this.btnRadiUGet.Location = new System.Drawing.Point(93, 292);
+            this.btnRadiUGet.Location = new System.Drawing.Point(469, 66);
             this.btnRadiUGet.Name = "btnRadiUGet";
             this.btnRadiUGet.Size = new System.Drawing.Size(360, 33);
             this.btnRadiUGet.TabIndex = 6;
@@ -107,11 +110,44 @@
             this.btnRadiUGet.UseVisualStyleBackColor = true;
             this.btnRadiUGet.Click += new System.EventHandler(this.btnRadiUGet_Click);
             // 
+            // btnJeSefCreate
+            // 
+            this.btnJeSefCreate.Location = new System.Drawing.Point(469, 118);
+            this.btnJeSefCreate.Name = "btnJeSefCreate";
+            this.btnJeSefCreate.Size = new System.Drawing.Size(360, 33);
+            this.btnJeSefCreate.TabIndex = 7;
+            this.btnJeSefCreate.Text = "Kreiranje stavke \'je šef\'";
+            this.btnJeSefCreate.UseVisualStyleBackColor = true;
+            this.btnJeSefCreate.Click += new System.EventHandler(this.btnJeSefCreate_Click);
+            // 
+            // btnJeSefGet
+            // 
+            this.btnJeSefGet.Location = new System.Drawing.Point(469, 157);
+            this.btnJeSefGet.Name = "btnJeSefGet";
+            this.btnJeSefGet.Size = new System.Drawing.Size(360, 32);
+            this.btnJeSefGet.TabIndex = 8;
+            this.btnJeSefGet.Text = "Pribavljanje istorije šefovanja za određenog radnika";
+            this.btnJeSefGet.UseVisualStyleBackColor = true;
+            this.btnJeSefGet.Click += new System.EventHandler(this.btnJeSefGet_Click);
+            // 
+            // btnRadnikDelete
+            // 
+            this.btnRadnikDelete.Location = new System.Drawing.Point(26, 237);
+            this.btnRadnikDelete.Name = "btnRadnikDelete";
+            this.btnRadnikDelete.Size = new System.Drawing.Size(360, 33);
+            this.btnRadnikDelete.TabIndex = 9;
+            this.btnRadnikDelete.Text = "Brisanje radnika";
+            this.btnRadnikDelete.UseVisualStyleBackColor = true;
+            this.btnRadnikDelete.Click += new System.EventHandler(this.btnRadnikDelete_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(571, 450);
+            this.ClientSize = new System.Drawing.Size(841, 291);
+            this.Controls.Add(this.btnRadnikDelete);
+            this.Controls.Add(this.btnJeSefGet);
+            this.Controls.Add(this.btnJeSefCreate);
             this.Controls.Add(this.btnRadiUGet);
             this.Controls.Add(this.btnRadiUCreate);
             this.Controls.Add(this.btnZelenePovrsineDelete);
@@ -134,6 +170,9 @@
         private System.Windows.Forms.Button btnZelenePovrsineDelete;
         private System.Windows.Forms.Button btnRadiUCreate;
         private System.Windows.Forms.Button btnRadiUGet;
+        private System.Windows.Forms.Button btnJeSefCreate;
+        private System.Windows.Forms.Button btnJeSefGet;
+        private System.Windows.Forms.Button btnRadnikDelete;
     }
 }
 

@@ -18,10 +18,12 @@ namespace SBPZelenePovrsine.Entiteti
         public virtual string StrucnaSprema { get; set; }
 
         public virtual IList<RadiU> Parkovi { get; set; }
+        public virtual IList<JeSef> SefParkova { get; set; }
 
         public Radnik()
         {
             Parkovi = new List<RadiU>();
+            SefParkova = new List<JeSef>();
         }
     }
 

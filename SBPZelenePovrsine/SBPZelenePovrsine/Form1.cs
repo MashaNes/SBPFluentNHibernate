@@ -187,6 +187,28 @@ namespace SBPZelenePovrsine
             }
         }
 
+
+        private void btnRadnikDelete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+
+                Radnik radnik = s.Query<Radnik>()
+                            .Where(r => r.BrRadneKnjizice == "213")
+                            .SingleOrDefault();
+
+                s.Delete(radnik);
+                s.Flush();
+                s.Close();
+                MessageBox.Show("Uspešno obrisan radnik sa brojem radne knjižice 213.");
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
         private void btnRadiUCreate_Click(object sender, EventArgs e)
         {
             try
@@ -260,5 +282,89 @@ namespace SBPZelenePovrsine
                 MessageBox.Show(exc.Message);
             }
         }
+
+        private void btnJeSefCreate_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+
+                Park park = new Park();
+                park.ZonaUgrozenosti = "Zona srednje ugroženosti";
+                park.TipPovrsine = "Park";
+                park.Opstina = "Medijana";
+                park.Naziv = "Park kod Pravnog fakulteta";
+
+                RadnikOdrzavanjeZelenila radnik = new RadnikOdrzavanjeZelenila();
+                radnik.BrRadneKnjizice = "321";
+                radnik.MBr = "2104979731014";
+                radnik.Ime = "Ana";
+                radnik.ImeRoditelja = "Ivan";
+                radnik.Prezime = "Kostić";
+                radnik.Adresa = "Cvijićeva 5, Niš";
+                radnik.DatumRodjenja = new DateTime(1979, 4, 21);
+                radnik.StrucnaSprema = "Treći stepen";
+
+                s.Save(park);
+                s.Save(radnik);
+                s.Flush();
+
+                RadiU radiU = new RadiU();
+                radiU.Park = park;
+                radiU.Radnik = radnik;
+                radiU.DatumOd = new DateTime(2008, 1, 13);
+                radiU.DatumDo = new DateTime(2018, 5, 20);
+
+                s.Save(radiU);
+                s.Flush();
+
+                JeSef jeSef = new JeSef();
+                jeSef.Park = park;
+                jeSef.Radnik = radnik;
+                jeSef.DatumOd = new DateTime(2015, 7, 11);
+                jeSef.DatumDo = new DateTime(2016, 8, 20);
+
+                s.Save(jeSef);
+                s.Flush();
+                s.Close();
+
+                MessageBox.Show("Stavka 'je_šef' uspešno kreirana!");
+
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btnJeSefGet_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+
+                IList<JeSef> sefovanja = s.Query<JeSef>()
+                                          .Where(js => js.Radnik.BrRadneKnjizice == "110")
+                                          .OrderBy(js => js.DatumOd)
+                                          .ToList();
+
+                String message = "";
+
+                foreach(JeSef js in sefovanja)
+                {
+                    String datumDo = (js.DatumDo != null) ? js.DatumDo.Value.ToShortDateString() : "sada";
+                    message += "Od " + js.DatumOd.ToShortDateString() + " do " + datumDo + ": " + js.Park.Naziv + 
+                               ", " + js.Park.Opstina + ", " + js.Park.ZonaUgrozenosti + "\n\n";
+                }
+
+                s.Close();
+                MessageBox.Show(message);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
     }
 }

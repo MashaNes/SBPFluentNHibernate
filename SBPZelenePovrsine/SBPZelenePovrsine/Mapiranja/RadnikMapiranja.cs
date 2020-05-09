@@ -27,6 +27,7 @@ namespace SBPZelenePovrsine.Mapiranja
             Map(x => x.StrucnaSprema, "STRUCNA_SPREMA");
 
             HasMany(x => x.Parkovi).KeyColumn("RADNIK_BR").LazyLoad().Cascade.All().Inverse();
+            HasMany(x => x.SefParkova).KeyColumn("RADNIK_BR").LazyLoad().Cascade.All().Inverse();
         }
     }
 

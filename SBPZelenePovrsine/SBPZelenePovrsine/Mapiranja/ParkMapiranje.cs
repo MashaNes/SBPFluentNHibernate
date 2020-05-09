@@ -19,6 +19,7 @@ namespace SBPZelenePovrsine.Mapiranja
             Map(x => x.Naziv, "NAZIV");
 
             HasMany(x => x.Radnici).KeyColumn("PARK_ID").LazyLoad().Cascade.All().Inverse();
+            HasMany(x => x.Sefovi).KeyColumn("PARK_ID").LazyLoad().Cascade.All().Inverse();
         }
     }
 }
