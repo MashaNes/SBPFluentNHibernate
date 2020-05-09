@@ -13,11 +13,13 @@ namespace SBPZelenePovrsine.Entiteti
 
         public virtual IList<RadiU> Radnici { get; set; }
         public virtual IList<JeSef> Sefovi { get; set; }
+        public virtual IList<Objekat> Objekti { get; set; }
 
         public Park()
         {
             Radnici = new List<RadiU>();
             Sefovi = new List<JeSef>();
+            Objekti = new List<Objekat>();
         }
     }
 }

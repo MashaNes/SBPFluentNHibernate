@@ -366,5 +366,98 @@ namespace SBPZelenePovrsine
             }
         }
 
+        private void btnObjekatCreate_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+
+                Klupa klupa = new Klupa();
+                klupa.RedniBroj = 5;
+
+                Fontana fontana = new Fontana();
+                fontana.RedniBroj = 6;
+
+                Svetiljka svetiljka = new Svetiljka();
+                svetiljka.RedniBroj = 7;
+
+                Igraliste igraliste = new Igraliste();
+                igraliste.RedniBroj = 8;
+                igraliste.Pesak = "Ne";
+                igraliste.StarostDeceOd = 5;
+                igraliste.StarostDeceDo = 12;
+                igraliste.BrojIgracaka = 7;
+
+                Park park = s.Query<Park>()
+                             .Where(x => x.Naziv == "Dečiji park u naselju Stevan Sinđelić" && x.Opstina == "Crveni krst")
+                             .FirstOrDefault();
+
+                klupa.Park = park;
+                fontana.Park = park;
+                svetiljka.Park = park;
+                igraliste.Park = park;
+
+                park.Objekti.Add(klupa);
+                park.Objekti.Add(fontana);
+                park.Objekti.Add(svetiljka);
+                park.Objekti.Add(igraliste);
+
+                s.Update(park);
+
+                s.Flush();
+                s.Close();
+
+                MessageBox.Show("Objekti uspešno kreirani");
+            }
+            catch(Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
+        }
+
+        private void btnGetObjekat_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+
+                Park park = s.Query<Park>()
+                             .Where(x => x.Naziv == "Dečiji park u naselju Stevan Sinđelić" && x.Opstina == "Crveni krst")
+                             .FirstOrDefault();
+
+                String rez = "";
+
+                foreach (Objekat o in park.Objekti)
+                {
+                    rez += o.RedniBroj + ": ";
+                    if (o.GetType() == typeof(Klupa))
+                    {
+                        rez += "Klupa";
+                    }
+                    else if (o.GetType() == typeof(Fontana))
+                    {
+                        rez += "Fontana";
+                    }
+                    else if (o.GetType() == typeof(Svetiljka))
+                    {
+                        rez += "Svetiljka";
+                    }
+                    else if (o.GetType() == typeof(Igraliste))
+                    {
+                        Igraliste i = o as Igraliste;
+                        rez += "Igralište " + (i.BrojIgracaka == null ? "" : "sa " + i.BrojIgracaka + " igračaka ")
+                            + "za decu od " + i.StarostDeceOd + " do " + i.StarostDeceDo + " godina";
+                    }
+                    // Dodati Spomenik, Skulpturu i Drvo (sa stampom i o zasticenosti)
+                    rez += "\n\n";
+                }
+
+                MessageBox.Show(rez);
+            }
+            catch(Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
+        }
     }
 }

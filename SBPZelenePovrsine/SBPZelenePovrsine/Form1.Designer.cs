@@ -38,6 +38,8 @@
             this.btnJeSefCreate = new System.Windows.Forms.Button();
             this.btnJeSefGet = new System.Windows.Forms.Button();
             this.btnRadnikDelete = new System.Windows.Forms.Button();
+            this.btnObjekatCreate = new System.Windows.Forms.Button();
+            this.btnGetObjekat = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnZelenePovrsineCreate
@@ -92,7 +94,7 @@
             // 
             // btnRadiUCreate
             // 
-            this.btnRadiUCreate.Location = new System.Drawing.Point(469, 27);
+            this.btnRadiUCreate.Location = new System.Drawing.Point(469, 17);
             this.btnRadiUCreate.Name = "btnRadiUCreate";
             this.btnRadiUCreate.Size = new System.Drawing.Size(360, 33);
             this.btnRadiUCreate.TabIndex = 5;
@@ -102,7 +104,7 @@
             // 
             // btnRadiUGet
             // 
-            this.btnRadiUGet.Location = new System.Drawing.Point(469, 66);
+            this.btnRadiUGet.Location = new System.Drawing.Point(469, 56);
             this.btnRadiUGet.Name = "btnRadiUGet";
             this.btnRadiUGet.Size = new System.Drawing.Size(360, 33);
             this.btnRadiUGet.TabIndex = 6;
@@ -112,7 +114,7 @@
             // 
             // btnJeSefCreate
             // 
-            this.btnJeSefCreate.Location = new System.Drawing.Point(469, 118);
+            this.btnJeSefCreate.Location = new System.Drawing.Point(469, 108);
             this.btnJeSefCreate.Name = "btnJeSefCreate";
             this.btnJeSefCreate.Size = new System.Drawing.Size(360, 33);
             this.btnJeSefCreate.TabIndex = 7;
@@ -122,7 +124,7 @@
             // 
             // btnJeSefGet
             // 
-            this.btnJeSefGet.Location = new System.Drawing.Point(469, 157);
+            this.btnJeSefGet.Location = new System.Drawing.Point(469, 147);
             this.btnJeSefGet.Name = "btnJeSefGet";
             this.btnJeSefGet.Size = new System.Drawing.Size(360, 32);
             this.btnJeSefGet.TabIndex = 8;
@@ -140,11 +142,33 @@
             this.btnRadnikDelete.UseVisualStyleBackColor = true;
             this.btnRadnikDelete.Click += new System.EventHandler(this.btnRadnikDelete_Click);
             // 
+            // btnObjekatCreate
+            // 
+            this.btnObjekatCreate.Location = new System.Drawing.Point(469, 201);
+            this.btnObjekatCreate.Name = "btnObjekatCreate";
+            this.btnObjekatCreate.Size = new System.Drawing.Size(360, 33);
+            this.btnObjekatCreate.TabIndex = 10;
+            this.btnObjekatCreate.Text = "Kreiranje objekata u hijerarhiji Objekat";
+            this.btnObjekatCreate.UseVisualStyleBackColor = true;
+            this.btnObjekatCreate.Click += new System.EventHandler(this.btnObjekatCreate_Click);
+            // 
+            // btnGetObjekat
+            // 
+            this.btnGetObjekat.Location = new System.Drawing.Point(469, 240);
+            this.btnGetObjekat.Name = "btnGetObjekat";
+            this.btnGetObjekat.Size = new System.Drawing.Size(360, 33);
+            this.btnGetObjekat.TabIndex = 11;
+            this.btnGetObjekat.Text = "Pribavljanje svih objekata iz određenog parka";
+            this.btnGetObjekat.UseVisualStyleBackColor = true;
+            this.btnGetObjekat.Click += new System.EventHandler(this.btnGetObjekat_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(841, 291);
+            this.Controls.Add(this.btnGetObjekat);
+            this.Controls.Add(this.btnObjekatCreate);
             this.Controls.Add(this.btnRadnikDelete);
             this.Controls.Add(this.btnJeSefGet);
             this.Controls.Add(this.btnJeSefCreate);
@@ -173,6 +197,8 @@
         private System.Windows.Forms.Button btnJeSefCreate;
         private System.Windows.Forms.Button btnJeSefGet;
         private System.Windows.Forms.Button btnRadnikDelete;
+        private System.Windows.Forms.Button btnObjekatCreate;
+        private System.Windows.Forms.Button btnGetObjekat;
     }
 }
 
