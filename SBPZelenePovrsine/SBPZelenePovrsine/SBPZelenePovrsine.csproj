@@ -78,6 +78,7 @@
     <Compile Include="Entiteti\RadiU.cs" />
     <Compile Include="Entiteti\Radnik.cs" />
     <Compile Include="Entiteti\Travnjak.cs" />
+    <Compile Include="Entiteti\Zasticen.cs" />
     <Compile Include="Entiteti\ZelenaPovrsina.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -92,6 +93,7 @@
     <Compile Include="Mapiranja\RadiUMapiranje.cs" />
     <Compile Include="Mapiranja\RadnikMapiranja.cs" />
     <Compile Include="Mapiranja\TravnjakMapiranje.cs" />
+    <Compile Include="Mapiranja\ZasticenMapiranje.cs" />
     <Compile Include="Mapiranja\ZelenaPovrsinaMapiranje.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

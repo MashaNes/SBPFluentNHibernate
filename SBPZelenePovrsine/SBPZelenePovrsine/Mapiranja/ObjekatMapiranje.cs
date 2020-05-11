@@ -66,6 +66,8 @@ namespace SBPZelenePovrsine.Mapiranja
         public SpomenikMapiranje()
         {
             DiscriminatorValue("Spomenik");
+
+            References(x => x.Zasticen).Column("ZASTITA_ID").Cascade.All().LazyLoad();
         }
     }
 
@@ -74,6 +76,8 @@ namespace SBPZelenePovrsine.Mapiranja
         public SkulpturaMapiranje()
         {
             DiscriminatorValue("Skulptura");
+
+            References(x => x.Zasticen).Column("ZASTITA_ID").Cascade.All().LazyLoad();
         }
     }
 
@@ -88,6 +92,8 @@ namespace SBPZelenePovrsine.Mapiranja
             Map(x => x.DatumSadnje, "DATUM_SADNJE");
             Map(x => x.VisinaKrosnje, "VISINA_KROSNJE");
             Map(x => x.PovrsinaPokrivanja, "POVRSINA_POKRIVANJA");
+
+            References(x => x.Zasticen).Column("ZASTITA_ID").Cascade.All().LazyLoad();
         }
     }
 }

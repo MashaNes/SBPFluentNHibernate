@@ -194,8 +194,11 @@ namespace SBPZelenePovrsine
             {
                 ISession s = DataLayer.GetSession();
 
+                IQuery q = s.CreateQuery("select min(r.BrRadneKnjizice) from Radnik r");
+                string brKnjizice = q.UniqueResult<string>();
+
                 Radnik radnik = s.Query<Radnik>()
-                            .Where(r => r.BrRadneKnjizice == "213")
+                            .Where(r => r.BrRadneKnjizice == brKnjizice)
                             .SingleOrDefault();
 
                 s.Delete(radnik);
@@ -421,8 +424,16 @@ namespace SBPZelenePovrsine
             {
                 ISession s = DataLayer.GetSession();
 
-                Park park = s.Query<Park>()
+                /*Park park = s.Query<Park>()
                              .Where(x => x.Naziv == "Dečiji park u naselju Stevan Sinđelić" && x.Opstina == "Crveni krst")
+                             .FirstOrDefault();*/
+
+                /*Park park = s.Query<Park>()
+                             .Where(p => p.Naziv == "Park Čair" && p.Opstina == "Medijana")
+                             .FirstOrDefault();*/
+
+                Park park = s.Query<Park>()
+                             .Where(p => p.Naziv == "Tvrđava" && p.Opstina == "Crveni krst")
                              .FirstOrDefault();
 
                 String rez = "";
@@ -448,6 +459,35 @@ namespace SBPZelenePovrsine
                         rez += "Igralište " + (i.BrojIgracaka == null ? "" : "sa " + i.BrojIgracaka + " igračaka ")
                             + "za decu od " + i.StarostDeceOd + " do " + i.StarostDeceDo + " godina";
                     }
+                    else if (o.GetType() == typeof(Spomenik))
+                    {
+                        Spomenik sp = o as Spomenik;
+                        Zasticen spZastita = sp.Zasticen;
+                        rez += "Spomenik, zaštićen datuma " + spZastita.DatumStavljanja.ToShortDateString() + " od strane institucije \"" +
+                                spZastita.Institucija + "\", uz opis: \"" + spZastita.Opis +
+                                "\". Novčana naknada za narušavanje ovog spomenika iznosi " + spZastita.NovcanaNaknada + " dinara.";
+                    }
+                    else if (o.GetType() == typeof(Skulptura))
+                    {
+                        Skulptura sk = o as Skulptura;
+                        Zasticen skZastita = sk.Zasticen;
+                        rez += "Skulptura, zaštićena datuma " + skZastita.DatumStavljanja.ToShortDateString() + " od strane institucije \"" +
+                                skZastita.Institucija + "\", uz opis: \"" + skZastita.Opis +
+                                "\". Novčana naknada za narušavanje ove skulpture iznosi " + skZastita.NovcanaNaknada + " dinara.";
+                    }
+                    else if(o.GetType() == typeof(Drvo))
+                    {
+                        Drvo d = o as Drvo;
+                        Zasticen dZastita = d.Zasticen;
+                        rez += "Drvo, vrste " + d.Vrsta + (d.ObimDebla == null ? "" : ", obima debla " + d.ObimDebla + " metara")
+                                + (d.PovrsinaPokrivanja == null ? "" : ", površine pokrivanja " + d.PovrsinaPokrivanja + " metara")
+                                + (d.VisinaKrosnje == null ? "" : ", visine krošnje " + d.VisinaKrosnje + " metara")
+                                + (d.DatumSadnje == null ? "" : " , posađeno datuma " + d.DatumSadnje.Value.ToShortDateString()) + ".";
+                        if(dZastita != null)
+                            rez += "Drvo je zaštićeno datuma " + dZastita.DatumStavljanja.ToShortDateString() + " od strane institucije \"" +
+                                dZastita.Institucija + "\", uz opis: \"" + dZastita.Opis +
+                                "\". Novčana naknada za ugrožavanje ovog drveta iznosi " + dZastita.NovcanaNaknada + " dinara.";
+                    }
                     // Dodati Spomenik, Skulpturu i Drvo (sa stampom i o zasticenosti)
                     rez += "\n\n";
                 }
@@ -457,6 +497,89 @@ namespace SBPZelenePovrsine
             catch(Exception exc)
             {
                 MessageBox.Show(exc.Message);
+            }
+        }
+
+        private void btnZasticenObjekatCreate_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                
+                ISession s = DataLayer.GetSession();
+
+                Zasticen zastitaSpomenik = new Zasticen();
+                zastitaSpomenik.Opis = "Bali-begova džamija u Tvrđavi predstavlja jedan od najvažnijih spomenika u Nišu podignutih za vreme vladavine Turaka.";
+                zastitaSpomenik.NovcanaNaknada = 7000;
+                zastitaSpomenik.Institucija = "Gradski zavod za zaštitu kulturne svojine";
+                zastitaSpomenik.DatumStavljanja = new DateTime(2004, 12, 7);
+
+
+                Zasticen zastitaSkulptura = new Zasticen();
+                zastitaSkulptura.Opis = "Skulptura pauna u parku Čair, jedinstvena po svojoj strukturi, s obzirom na to da je nastala oblikovanjem žbunastih biljaka";
+                zastitaSkulptura.NovcanaNaknada = 12000;
+                zastitaSkulptura.Institucija = "Niški kulturni centar";
+                zastitaSkulptura.DatumStavljanja = new DateTime(2019, 7, 14);
+
+                Zasticen zastitaDrvo = new Zasticen();
+                zastitaDrvo.Opis = "Breza, stara preko šezdeset godina, predstavlja jedan u nizu značajnih prirodnih spomenika u Nišu";
+                zastitaDrvo.NovcanaNaknada = 9000;
+                zastitaDrvo.Institucija = "Zavod za zaštitu životne sredine";
+                zastitaDrvo.DatumStavljanja = new DateTime(2014, 4, 5);
+
+                Park parkTvrdjava = s.Query<Park>()
+                                           .Where(p => p.Naziv == "Tvrđava" && p.Opstina == "Crveni krst")
+                                           .Single();
+
+                Park parkCair = s.Query<Park>()
+                                 .Where(p => p.Naziv == "Park Čair" && p.Opstina == "Medijana")
+                                 .Single();
+
+                IQuery qSpomenik = s.CreateQuery("select max(o.RedniBroj) from Objekat o where o.Park.Id = " + parkTvrdjava.Id);
+                IQuery qSkulptura = s.CreateQuery("select max(o.RedniBroj) from Objekat o where o.Park.Id = " + parkCair.Id);
+
+                int rBrSpomenik = qSpomenik.UniqueResult<int>() + 1;
+                int rBrSkulptura = qSkulptura.UniqueResult<int>() + 1;
+
+                int rBrDrvo = rBrSkulptura + 1;
+
+                Spomenik spomenik = new Spomenik();
+                spomenik.RedniBroj = rBrSpomenik;
+                spomenik.Park = parkTvrdjava;
+                spomenik.Zasticen = zastitaSpomenik;
+
+                Skulptura skulptura = new Skulptura();
+                skulptura.RedniBroj = rBrSkulptura;
+                skulptura.Park = parkCair;
+                skulptura.Zasticen = zastitaSkulptura;
+
+                Drvo drvo = new Drvo();
+                drvo.RedniBroj = rBrDrvo;
+                drvo.Park = parkCair;
+                drvo.Zasticen = zastitaDrvo;
+                drvo.DatumSadnje = new DateTime(1953, 3, 12);
+                drvo.ObimDebla = 2.22f;
+                drvo.VisinaKrosnje = 18;
+                drvo.PovrsinaPokrivanja = 8.2f;
+                drvo.Vrsta = "Breza";
+
+                parkTvrdjava.Objekti.Add(spomenik);
+                parkCair.Objekti.Add(skulptura);
+                parkCair.Objekti.Add(drvo);
+
+                s.Update(parkTvrdjava);
+                s.Update(parkCair);
+
+                s.Save(spomenik);
+                s.Save(skulptura);
+                s.Save(drvo);
+                s.Flush();
+                s.Close();
+
+                MessageBox.Show("Uspešno kreirani zaštićeni objekti.");
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
     }
