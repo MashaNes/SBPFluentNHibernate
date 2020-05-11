@@ -465,7 +465,7 @@ namespace SBPZelenePovrsine
                         Zasticen spZastita = sp.Zasticen;
                         rez += "Spomenik, zaštićen datuma " + spZastita.DatumStavljanja.ToShortDateString() + " od strane institucije \"" +
                                 spZastita.Institucija + "\", uz opis: \"" + spZastita.Opis +
-                                "\". Novčana naknada za narušavanje ovog spomenika iznosi " + spZastita.NovcanaNaknada + " dinara.";
+                                "\". Godišnja novčana naknada za potrebe zaštite ovog spomenika iznosi " + spZastita.NovcanaNaknada + " dinara.";
                     }
                     else if (o.GetType() == typeof(Skulptura))
                     {
@@ -473,7 +473,7 @@ namespace SBPZelenePovrsine
                         Zasticen skZastita = sk.Zasticen;
                         rez += "Skulptura, zaštićena datuma " + skZastita.DatumStavljanja.ToShortDateString() + " od strane institucije \"" +
                                 skZastita.Institucija + "\", uz opis: \"" + skZastita.Opis +
-                                "\". Novčana naknada za narušavanje ove skulpture iznosi " + skZastita.NovcanaNaknada + " dinara.";
+                                "\". Godišnja novčana naknada za potrebe zaštite ove skulpture iznosi " + skZastita.NovcanaNaknada + " dinara.";
                     }
                     else if(o.GetType() == typeof(Drvo))
                     {
@@ -486,9 +486,8 @@ namespace SBPZelenePovrsine
                         if(dZastita != null)
                             rez += "Drvo je zaštićeno datuma " + dZastita.DatumStavljanja.ToShortDateString() + " od strane institucije \"" +
                                 dZastita.Institucija + "\", uz opis: \"" + dZastita.Opis +
-                                "\". Novčana naknada za ugrožavanje ovog drveta iznosi " + dZastita.NovcanaNaknada + " dinara.";
+                                "\". Godišnja novčana naknada za za potrebe zaštite ovog drveta iznosi " + dZastita.NovcanaNaknada + " dinara.";
                     }
-                    // Dodati Spomenik, Skulpturu i Drvo (sa stampom i o zasticenosti)
                     rez += "\n\n";
                 }
 
