@@ -56,21 +56,24 @@ namespace SBPZelenePovrsine
 
                 foreach (ZelenaPovrsina zp in lista)
                 {
-                    rez += zp.Id + ": " + zp.TipPovrsine + ", " + zp.Opstina + ", " + zp.ZonaUgrozenosti;
+                    rez += zp.Id + ": " + zp.TipPovrsine + ", opština " + zp.Opstina + ", " + zp.ZonaUgrozenosti;
                     if (zp.GetType() == typeof(Travnjak))
                     {
                         Travnjak t = (Travnjak)zp;
-                        rez += ", " + t.AdresaZgrade + ", " + t.Povrsina;
+                        rez += ", " + t.AdresaZgrade + (t.Povrsina == null? "" : ", površina u arima - " + t.Povrsina);
                     }
                     else if (zp.GetType() == typeof(Drvored))
                     {
                         Drvored d = (Drvored)zp;
-                        rez += ", " + d.Ulica + ", " + d.Duzina + ", " + d.BrojStabala + ", " + d.VrstaDrveta;
+                        rez += ", " + d.Ulica + ", " + d.VrstaDrveta 
+                            + (d.Duzina == null? "" : ", dužina u metrima - " + d.Duzina) 
+                            + (d.BrojStabala == null? "" : ", broj stabala - " + d.BrojStabala);
                     }
                     else if (zp.GetType() == typeof(Park))
                     {
                         Park p = (Park)zp;
-                        rez += ", " + p.Naziv + ", " + p.Povrsina;
+                        rez += ", " + p.Naziv 
+                            + (p.Povrsina == null? "" : ", pavršina u hetarima - " + p.Povrsina);
                     }
                     rez += "\n\n";
                 }
@@ -97,8 +100,9 @@ namespace SBPZelenePovrsine
 
                 foreach (Radnik r in radnici)
                 {
-                    ispis += r.BrRadneKnjizice + ": " + r.MBr + ", " + r.Ime + " (" + r.ImeRoditelja + ") " +
-                        r.Prezime + ", " + r.Adresa + ", " + r.StrucnaSprema + ", ";
+                    ispis += r.BrRadneKnjizice + ": " + r.MBr + ", " + r.Ime + " (" + r.ImeRoditelja + ") "
+                          + r.Prezime + ", " + r.Adresa + ", " + r.StrucnaSprema + ", "
+                          + (r.DatumRodjenja == null ? "" : r.DatumRodjenja.Value.ToShortDateString() + ", ");
 
                     
                     if (r.GetType() == typeof(RadnikOdrzavanjeZelenila))
@@ -138,14 +142,33 @@ namespace SBPZelenePovrsine
             {
                 ISession s = DataLayer.GetSession();
 
+                Random random = new Random();
+
                 RadnikOdrzavanjeHigijene radnikHigijena = new RadnikOdrzavanjeHigijene();
-                radnikHigijena.BrRadneKnjizice = "213";
-                radnikHigijena.MBr = "1402988730891";
+                radnikHigijena.BrRadneKnjizice = random.Next(100, 1000).ToString();
+
+                int dan = random.Next(1, 32);
+                int mesec = random.Next(1, 13);
+                if (dan == 31 && (mesec == 4 || mesec == 6 || mesec == 9 || mesec == 11))
+                    dan--;
+                else if (mesec == 2 && dan > 28)
+                    dan = 28;
+                int godina = 1900 + random.Next(56,102);
+                radnikHigijena.DatumRodjenja = new DateTime(godina, mesec, dan).Date;
+
+                String mbr = (dan < 10 ? "0" + dan : dan.ToString())
+                           + (mesec < 10 ? "0" + mesec : mesec.ToString())
+                           + (godina < 2000? (godina-1000).ToString(): "00" + (godina-2000).ToString());
+                mbr += random.Next(10, 100).ToString();
+                mbr += "0";
+                int kraj = random.Next(10, 1000);
+                mbr += (kraj < 100 ? "0" + kraj : kraj.ToString());               
+                radnikHigijena.MBr = mbr;
+
                 radnikHigijena.Ime = "Kosta";
                 radnikHigijena.ImeRoditelja = "Stevan";
                 radnikHigijena.Prezime = "Kostić";
                 radnikHigijena.Adresa = "Bulevar Nemanjića 12/7, Niš";
-                radnikHigijena.DatumRodjenja = new DateTime(1988, 2, 14).Date;
                 radnikHigijena.StrucnaSprema = "Četvrti stepen";
 
                 s.Save(radnikHigijena);
@@ -168,8 +191,10 @@ namespace SBPZelenePovrsine
                 ISession s = DataLayer.GetSession();
 
                 Travnjak t = s.Query<Travnjak>()
-                              .Where(travnjak => travnjak.AdresaZgrade == "Ćele kula 10")
+                              .OrderByDescending(x => x.Id)
                               .FirstOrDefault();
+                String adresa = t.AdresaZgrade;
+
                 s.Close();
 
                 s = DataLayer.GetSession();
@@ -179,7 +204,7 @@ namespace SBPZelenePovrsine
                 s.Delete(z);
                 s.Flush();
                 s.Close();
-                MessageBox.Show("Uspešno obrisan travnjak na adresi 'Ćele kula 10'");
+                MessageBox.Show("Uspešno obrisan travnjak na adresi '" + adresa + "'");
             }
             catch(Exception exc)
             {
@@ -198,8 +223,8 @@ namespace SBPZelenePovrsine
                 string brKnjizice = q.UniqueResult<string>();
 
                 Radnik radnik = s.Query<Radnik>()
-                            .Where(r => r.BrRadneKnjizice == brKnjizice)
-                            .SingleOrDefault();
+                                 .Where(r => r.BrRadneKnjizice == brKnjizice)
+                                 .SingleOrDefault();
 
                 s.Delete(radnik);
                 s.Flush();
@@ -218,31 +243,68 @@ namespace SBPZelenePovrsine
             {
                 ISession s = DataLayer.GetSession();
 
-                Park p = new Park();
-                p.Naziv = "Park na centralnom trgu";
-                p.Opstina = "Niška Banja";
-                p.TipPovrsine = "Park";
-                p.ZonaUgrozenosti = "Zona niske ugroženosti";
+                String NazivParka = "Park na centralnom trgu";
+                String Opstina = "Niška Banja";
 
-                s.Save(p);
-                s.Flush();
+                Park park = s.Query<Park>()
+                             .Where(x => x.Naziv == NazivParka && x.Opstina == Opstina)
+                             .FirstOrDefault();
 
-                Radnik r = new RadnikOdrzavanjeHigijene();
-                r.Ime = "Milovan";
-                r.ImeRoditelja = "Stojan";
-                r.Prezime = "Novaković";
-                r.BrRadneKnjizice = "687";
-                r.MBr = "1206978730049";
-                r.Adresa = "Strahinjića Bana 15, Niš";
-                r.DatumRodjenja = new DateTime(1978, 6, 12);
-                r.StrucnaSprema = "Treći stepen";
+                if(park == null)
+                {
+                    park = new Park();
+                    park.Naziv = NazivParka;
+                    park.Opstina = Opstina;
+                    park.TipPovrsine = "Park";
+                    park.ZonaUgrozenosti = "Zona niske ugroženosti";
 
-                s.Save(r);
-                s.Flush();
+                    s.Save(park);
+                    s.Flush();
+                }
+
+                String brojRadneKnjizice = "687";
+                Radnik r = s.Get<Radnik>(brojRadneKnjizice);
+
+                if(r == null)
+                {
+                    r = new RadnikOdrzavanjeHigijene();
+                    r.Ime = "Milovan";
+                    r.ImeRoditelja = "Stojan";
+                    r.Prezime = "Novaković";
+                    r.BrRadneKnjizice = "687";
+                    r.MBr = "1206978730049";
+                    r.Adresa = "Strahinjića Bana 15, Niš";
+                    r.DatumRodjenja = new DateTime(1978, 6, 12);
+                    r.StrucnaSprema = "Treći stepen";
+
+                    s.Save(r);
+                    s.Flush();
+                }
+
+                DateTime datum = s.Query<RadiU>()
+                                  .Where(x => x.Radnik == r)
+                                  .OrderBy(x => x.DatumOd)
+                                  .Select(x => x.DatumOd)
+                                  .FirstOrDefault();
 
                 RadiU radiU = new RadiU();
-                radiU.DatumOd = new DateTime(2015, 4, 23);
-                radiU.Park = p;
+
+                if (datum.Year == 1)
+                {
+                    radiU.DatumOd = new DateTime(2015, 4, 23);
+                }
+                else
+                {
+                    if(datum.Day != 1)
+                        radiU.DatumDo = new DateTime(datum.Year, datum.Month, datum.Day - 1);
+                    else if(datum.Month != 1)
+                        radiU.DatumDo = new DateTime(datum.Year, datum.Month - 1, datum.Day);
+                    else
+                        radiU.DatumDo = new DateTime(datum.Year - 1, 12, datum.Day);
+                    radiU.DatumOd = new DateTime(datum.Year - 1, datum.Month, datum.Day);
+                }
+                
+                radiU.Park = park;
                 radiU.Radnik = r;
 
                 s.Save(radiU);
@@ -261,9 +323,10 @@ namespace SBPZelenePovrsine
         {
             try
             {
+                String brojRadneKnjizice = "120";
                 ISession s = DataLayer.GetSession();
                 List<RadiU> radi = s.Query<RadiU>()
-                                    .Where(x => x.Radnik.BrRadneKnjizice == "120")
+                                    .Where(x => x.Radnik.BrRadneKnjizice == brojRadneKnjizice)
                                     .OrderBy(x => x.DatumOd)
                                     .ToList();
                 String ispis = "";
@@ -292,31 +355,67 @@ namespace SBPZelenePovrsine
             {
                 ISession s = DataLayer.GetSession();
 
-                Park park = new Park();
-                park.ZonaUgrozenosti = "Zona srednje ugroženosti";
-                park.TipPovrsine = "Park";
-                park.Opstina = "Medijana";
-                park.Naziv = "Park kod Pravnog fakulteta";
+                String NazivParka = "Park kod Pravnog fakulteta";
+                String Opstina = "Medijana";
 
-                RadnikOdrzavanjeZelenila radnik = new RadnikOdrzavanjeZelenila();
-                radnik.BrRadneKnjizice = "321";
-                radnik.MBr = "2104979731014";
-                radnik.Ime = "Ana";
-                radnik.ImeRoditelja = "Ivan";
-                radnik.Prezime = "Kostić";
-                radnik.Adresa = "Cvijićeva 5, Niš";
-                radnik.DatumRodjenja = new DateTime(1979, 4, 21);
-                radnik.StrucnaSprema = "Treći stepen";
+                Park park = s.Query<Park>()
+                             .Where(x => x.Naziv == NazivParka && x.Opstina == Opstina)
+                             .FirstOrDefault();
 
-                s.Save(park);
-                s.Save(radnik);
+                if(park == null)
+                {
+                    park = new Park();
+                    park.ZonaUgrozenosti = "Zona srednje ugroženosti";
+                    park.TipPovrsine = "Park";
+                    park.Opstina = Opstina;
+                    park.Naziv = NazivParka;
+                    s.Save(park);
+                }
+
+                String brojRadneKnjizice = "321";
+                Radnik radnik = s.Get<Radnik>(brojRadneKnjizice);
+
+                if(radnik == null)
+                {
+                    radnik = new RadnikOdrzavanjeZelenila();
+                    radnik.BrRadneKnjizice = "321";
+                    radnik.MBr = "2104979731014";
+                    radnik.Ime = "Ana";
+                    radnik.ImeRoditelja = "Ivan";
+                    radnik.Prezime = "Kostić";
+                    radnik.Adresa = "Cvijićeva 5, Niš";
+                    radnik.DatumRodjenja = new DateTime(1979, 4, 21);
+                    radnik.StrucnaSprema = "Treći stepen";
+                    s.Save(radnik);
+                }
+
                 s.Flush();
 
                 RadiU radiU = new RadiU();
                 radiU.Park = park;
                 radiU.Radnik = radnik;
-                radiU.DatumOd = new DateTime(2008, 1, 13);
-                radiU.DatumDo = new DateTime(2018, 5, 20);
+
+                DateTime datum = s.Query<RadiU>()
+                                  .Where(x => x.Radnik == radnik)
+                                  .OrderBy(x => x.DatumOd)
+                                  .Select(x => x.DatumOd)
+                                  .FirstOrDefault();
+
+                if (datum.Year == 1)
+                {
+                    radiU.DatumOd = new DateTime(2016, 1, 13);
+                    radiU.DatumDo = new DateTime(2018, 5, 20);
+                }
+                else
+                {
+                    if (datum.Day != 1)
+                        radiU.DatumDo = new DateTime(datum.Year, datum.Month, datum.Day - 1);
+                    else if (datum.Month != 1)
+                        radiU.DatumDo = new DateTime(datum.Year, datum.Month - 1, datum.Day);
+                    else
+                        radiU.DatumDo = new DateTime(datum.Year - 1, 12, datum.Day);
+                    radiU.DatumOd = new DateTime(datum.Year - 2, datum.Month, datum.Day);
+                }
 
                 s.Save(radiU);
                 s.Flush();
@@ -324,8 +423,8 @@ namespace SBPZelenePovrsine
                 JeSef jeSef = new JeSef();
                 jeSef.Park = park;
                 jeSef.Radnik = radnik;
-                jeSef.DatumOd = new DateTime(2015, 7, 11);
-                jeSef.DatumDo = new DateTime(2016, 8, 20);
+                jeSef.DatumOd = new DateTime(radiU.DatumOd.Year + 1, radiU.DatumOd.Month, radiU.DatumOd.Day);
+                jeSef.DatumDo = radiU.DatumDo;
 
                 s.Save(jeSef);
                 s.Flush();
@@ -344,10 +443,11 @@ namespace SBPZelenePovrsine
         {
             try
             {
+                String brojRadneKnjizice = "110";
                 ISession s = DataLayer.GetSession();
 
                 IList<JeSef> sefovanja = s.Query<JeSef>()
-                                          .Where(js => js.Radnik.BrRadneKnjizice == "110")
+                                          .Where(js => js.Radnik.BrRadneKnjizice == brojRadneKnjizice)
                                           .OrderBy(js => js.DatumOd)
                                           .ToList();
 
@@ -375,24 +475,32 @@ namespace SBPZelenePovrsine
             {
                 ISession s = DataLayer.GetSession();
 
+                String NazivParka = "Dečiji park u naselju Stevan Sinđelić";
+                String Opstina = "Crveni krst";
+                int maxRedniBroj = s.Query<Objekat>()
+                                    .Where(x => x.Park.Naziv == NazivParka && x.Park.Opstina == Opstina)
+                                    .OrderByDescending(x => x.RedniBroj)
+                                    .Select(x => x.RedniBroj)
+                                    .FirstOrDefault();
+
                 Klupa klupa = new Klupa();
-                klupa.RedniBroj = 5;
+                klupa.RedniBroj = maxRedniBroj + 1;
 
                 Fontana fontana = new Fontana();
-                fontana.RedniBroj = 6;
+                fontana.RedniBroj = maxRedniBroj + 2;
 
                 Svetiljka svetiljka = new Svetiljka();
-                svetiljka.RedniBroj = 7;
+                svetiljka.RedniBroj = maxRedniBroj + 3;
 
                 Igraliste igraliste = new Igraliste();
-                igraliste.RedniBroj = 8;
+                igraliste.RedniBroj = maxRedniBroj + 4;
                 igraliste.Pesak = "Ne";
                 igraliste.StarostDeceOd = 5;
                 igraliste.StarostDeceDo = 12;
                 igraliste.BrojIgracaka = 7;
 
                 Park park = s.Query<Park>()
-                             .Where(x => x.Naziv == "Dečiji park u naselju Stevan Sinđelić" && x.Opstina == "Crveni krst")
+                             .Where(x => x.Naziv == NazivParka && x.Opstina == Opstina)
                              .FirstOrDefault();
 
                 klupa.Park = park;
@@ -424,16 +532,11 @@ namespace SBPZelenePovrsine
             {
                 ISession s = DataLayer.GetSession();
 
-                /*Park park = s.Query<Park>()
-                             .Where(x => x.Naziv == "Dečiji park u naselju Stevan Sinđelić" && x.Opstina == "Crveni krst")
-                             .FirstOrDefault();*/
-
-                /*Park park = s.Query<Park>()
-                             .Where(p => p.Naziv == "Park Čair" && p.Opstina == "Medijana")
-                             .FirstOrDefault();*/
+                String NazivParka = "Tvrđava"; // "Dečiji park u naselju Stevan Sinđelić" ili "Park Čair"
+                String Opstina = "Crveni krst"; // "Crveni krst" ili "Medijana"
 
                 Park park = s.Query<Park>()
-                             .Where(p => p.Naziv == "Tvrđava" && p.Opstina == "Crveni krst")
+                             .Where(p => p.Naziv == NazivParka && p.Opstina == Opstina)
                              .FirstOrDefault();
 
                 String rez = "";
@@ -463,30 +566,38 @@ namespace SBPZelenePovrsine
                     {
                         Spomenik sp = o as Spomenik;
                         Zasticen spZastita = sp.Zasticen;
-                        rez += "Spomenik, zaštićen datuma " + spZastita.DatumStavljanja.ToShortDateString() + " od strane institucije \"" +
-                                spZastita.Institucija + "\", uz opis: \"" + spZastita.Opis +
-                                "\". Godišnja novčana naknada za potrebe zaštite ovog spomenika iznosi " + spZastita.NovcanaNaknada + " dinara.";
+                        rez += "Spomenik, zaštićen datuma " + spZastita.DatumStavljanja.ToShortDateString() 
+                            + " od strane institucije \"" + spZastita.Institucija 
+                            + "\", uz opis: \"" + spZastita.Opis 
+                            + "\". Godišnja novčana naknada za potrebe zaštite ovog spomenika iznosi " 
+                            + spZastita.NovcanaNaknada + " dinara.";
                     }
                     else if (o.GetType() == typeof(Skulptura))
                     {
                         Skulptura sk = o as Skulptura;
                         Zasticen skZastita = sk.Zasticen;
-                        rez += "Skulptura, zaštićena datuma " + skZastita.DatumStavljanja.ToShortDateString() + " od strane institucije \"" +
-                                skZastita.Institucija + "\", uz opis: \"" + skZastita.Opis +
-                                "\". Godišnja novčana naknada za potrebe zaštite ove skulpture iznosi " + skZastita.NovcanaNaknada + " dinara.";
+                        rez += "Skulptura, zaštićena datuma " + skZastita.DatumStavljanja.ToShortDateString() 
+                            + " od strane institucije \"" + skZastita.Institucija
+                            + "\", uz opis: \"" + skZastita.Opis 
+                            + "\". Godišnja novčana naknada za potrebe zaštite ove skulpture iznosi " 
+                            + skZastita.NovcanaNaknada + " dinara.";
                     }
                     else if(o.GetType() == typeof(Drvo))
                     {
                         Drvo d = o as Drvo;
                         Zasticen dZastita = d.Zasticen;
-                        rez += "Drvo, vrste " + d.Vrsta + (d.ObimDebla == null ? "" : ", obima debla " + d.ObimDebla + " metara")
-                                + (d.PovrsinaPokrivanja == null ? "" : ", površine pokrivanja " + d.PovrsinaPokrivanja + " metara")
-                                + (d.VisinaKrosnje == null ? "" : ", visine krošnje " + d.VisinaKrosnje + " metara")
-                                + (d.DatumSadnje == null ? "" : " , posađeno datuma " + d.DatumSadnje.Value.ToShortDateString()) + ".";
+                        
+                        rez += "Drvo, vrste " + d.Vrsta 
+                            + (d.ObimDebla == null ? "" : ", obima debla " + d.ObimDebla + " metara")
+                            + (d.PovrsinaPokrivanja == null ? "" : ", površine pokrivanja " + d.PovrsinaPokrivanja + " metara")
+                            + (d.VisinaKrosnje == null ? "" : ", visine krošnje " + d.VisinaKrosnje + " metara")
+                            + (d.DatumSadnje == null ? "" : " , posađeno datuma " + d.DatumSadnje.Value.ToShortDateString()) + ".";
                         if(dZastita != null)
-                            rez += "Drvo je zaštićeno datuma " + dZastita.DatumStavljanja.ToShortDateString() + " od strane institucije \"" +
-                                dZastita.Institucija + "\", uz opis: \"" + dZastita.Opis +
-                                "\". Godišnja novčana naknada za za potrebe zaštite ovog drveta iznosi " + dZastita.NovcanaNaknada + " dinara.";
+                            rez += " Drvo je zaštićeno datuma " + dZastita.DatumStavljanja.ToShortDateString() 
+                                + " od strane institucije \"" + dZastita.Institucija 
+                                + "\", uz opis: \"" + dZastita.Opis 
+                                + "\". Godišnja novčana naknada za za potrebe zaštite ovog drveta iznosi " 
+                                + dZastita.NovcanaNaknada + " dinara.";
                     }
                     rez += "\n\n";
                 }
@@ -525,12 +636,18 @@ namespace SBPZelenePovrsine
                 zastitaDrvo.Institucija = "Zavod za zaštitu životne sredine";
                 zastitaDrvo.DatumStavljanja = new DateTime(2014, 4, 5);
 
+                String nazivParka = "Tvrđava";
+                String Opstina = "Crveni krst";
+
                 Park parkTvrdjava = s.Query<Park>()
-                                           .Where(p => p.Naziv == "Tvrđava" && p.Opstina == "Crveni krst")
+                                           .Where(p => p.Naziv == nazivParka && p.Opstina == Opstina)
                                            .Single();
 
+                nazivParka = "Park Čair";
+                Opstina = "Medijana";
+
                 Park parkCair = s.Query<Park>()
-                                 .Where(p => p.Naziv == "Park Čair" && p.Opstina == "Medijana")
+                                 .Where(p => p.Naziv == nazivParka && p.Opstina == Opstina)
                                  .Single();
 
                 IQuery qSpomenik = s.CreateQuery("select max(o.RedniBroj) from Objekat o where o.Park.Id = " + parkTvrdjava.Id);

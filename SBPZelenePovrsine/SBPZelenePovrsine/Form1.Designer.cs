@@ -65,7 +65,7 @@
             // 
             // btnGetRadnici
             // 
-            this.btnGetRadnici.Location = new System.Drawing.Point(25, 225);
+            this.btnGetRadnici.Location = new System.Drawing.Point(324, 95);
             this.btnGetRadnici.Name = "btnGetRadnici";
             this.btnGetRadnici.Size = new System.Drawing.Size(262, 33);
             this.btnGetRadnici.TabIndex = 2;
@@ -75,7 +75,7 @@
             // 
             // btnRadniciCreate
             // 
-            this.btnRadniciCreate.Location = new System.Drawing.Point(25, 147);
+            this.btnRadniciCreate.Location = new System.Drawing.Point(324, 17);
             this.btnRadniciCreate.Name = "btnRadniciCreate";
             this.btnRadniciCreate.Size = new System.Drawing.Size(262, 33);
             this.btnRadniciCreate.TabIndex = 3;
@@ -95,7 +95,7 @@
             // 
             // btnRadiUCreate
             // 
-            this.btnRadiUCreate.Location = new System.Drawing.Point(320, 17);
+            this.btnRadiUCreate.Location = new System.Drawing.Point(175, 156);
             this.btnRadiUCreate.Name = "btnRadiUCreate";
             this.btnRadiUCreate.Size = new System.Drawing.Size(262, 33);
             this.btnRadiUCreate.TabIndex = 5;
@@ -105,17 +105,17 @@
             // 
             // btnRadiUGet
             // 
-            this.btnRadiUGet.Location = new System.Drawing.Point(320, 56);
+            this.btnRadiUGet.Location = new System.Drawing.Point(175, 195);
             this.btnRadiUGet.Name = "btnRadiUGet";
             this.btnRadiUGet.Size = new System.Drawing.Size(262, 33);
             this.btnRadiUGet.TabIndex = 6;
-            this.btnRadiUGet.Text = "Pribavljanje istorije rada za oređenog radnika";
+            this.btnRadiUGet.Text = "Pribavljanje istorije rada za određenog radnika";
             this.btnRadiUGet.UseVisualStyleBackColor = true;
             this.btnRadiUGet.Click += new System.EventHandler(this.btnRadiUGet_Click);
             // 
             // btnJeSefCreate
             // 
-            this.btnJeSefCreate.Location = new System.Drawing.Point(320, 147);
+            this.btnJeSefCreate.Location = new System.Drawing.Point(477, 156);
             this.btnJeSefCreate.Name = "btnJeSefCreate";
             this.btnJeSefCreate.Size = new System.Drawing.Size(262, 33);
             this.btnJeSefCreate.TabIndex = 7;
@@ -125,7 +125,7 @@
             // 
             // btnJeSefGet
             // 
-            this.btnJeSefGet.Location = new System.Drawing.Point(320, 186);
+            this.btnJeSefGet.Location = new System.Drawing.Point(477, 195);
             this.btnJeSefGet.Name = "btnJeSefGet";
             this.btnJeSefGet.Size = new System.Drawing.Size(262, 33);
             this.btnJeSefGet.TabIndex = 8;
@@ -135,7 +135,7 @@
             // 
             // btnRadnikDelete
             // 
-            this.btnRadnikDelete.Location = new System.Drawing.Point(25, 186);
+            this.btnRadnikDelete.Location = new System.Drawing.Point(324, 56);
             this.btnRadnikDelete.Name = "btnRadnikDelete";
             this.btnRadnikDelete.Size = new System.Drawing.Size(262, 33);
             this.btnRadnikDelete.TabIndex = 9;
@@ -145,7 +145,7 @@
             // 
             // btnObjekatCreate
             // 
-            this.btnObjekatCreate.Location = new System.Drawing.Point(25, 278);
+            this.btnObjekatCreate.Location = new System.Drawing.Point(619, 17);
             this.btnObjekatCreate.Name = "btnObjekatCreate";
             this.btnObjekatCreate.Size = new System.Drawing.Size(262, 33);
             this.btnObjekatCreate.TabIndex = 10;
@@ -155,7 +155,7 @@
             // 
             // btnGetObjekat
             // 
-            this.btnGetObjekat.Location = new System.Drawing.Point(25, 354);
+            this.btnGetObjekat.Location = new System.Drawing.Point(619, 93);
             this.btnGetObjekat.Name = "btnGetObjekat";
             this.btnGetObjekat.Size = new System.Drawing.Size(262, 33);
             this.btnGetObjekat.TabIndex = 11;
@@ -165,7 +165,7 @@
             // 
             // btnZasticenObjekatCreate
             // 
-            this.btnZasticenObjekatCreate.Location = new System.Drawing.Point(25, 317);
+            this.btnZasticenObjekatCreate.Location = new System.Drawing.Point(619, 56);
             this.btnZasticenObjekatCreate.Name = "btnZasticenObjekatCreate";
             this.btnZasticenObjekatCreate.Size = new System.Drawing.Size(262, 31);
             this.btnZasticenObjekatCreate.TabIndex = 12;
@@ -177,7 +177,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(841, 401);
+            this.ClientSize = new System.Drawing.Size(902, 254);
             this.Controls.Add(this.btnZasticenObjekatCreate);
             this.Controls.Add(this.btnGetObjekat);
             this.Controls.Add(this.btnObjekatCreate);
