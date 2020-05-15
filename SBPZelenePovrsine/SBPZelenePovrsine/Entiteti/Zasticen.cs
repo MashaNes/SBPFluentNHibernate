@@ -13,5 +13,7 @@ namespace SBPZelenePovrsine.Entiteti
         public virtual float NovcanaNaknada { get; set; }
         public virtual string Institucija { get; set; }
         public virtual DateTime DatumStavljanja { get; set; }
+
+        public virtual Objekat Objekat { get; set; }
     }
 }
