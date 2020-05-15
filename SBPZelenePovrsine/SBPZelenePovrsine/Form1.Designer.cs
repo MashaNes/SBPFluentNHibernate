@@ -41,6 +41,8 @@
             this.btnObjekatCreate = new System.Windows.Forms.Button();
             this.btnGetObjekat = new System.Windows.Forms.Button();
             this.btnZasticenObjekatCreate = new System.Windows.Forms.Button();
+            this.btnGetZasticeniObjekti = new System.Windows.Forms.Button();
+            this.btnGetZasticeniObjektiUParku = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnZelenePovrsineCreate
@@ -65,7 +67,7 @@
             // 
             // btnGetRadnici
             // 
-            this.btnGetRadnici.Location = new System.Drawing.Point(324, 95);
+            this.btnGetRadnici.Location = new System.Drawing.Point(324, 55);
             this.btnGetRadnici.Name = "btnGetRadnici";
             this.btnGetRadnici.Size = new System.Drawing.Size(262, 33);
             this.btnGetRadnici.TabIndex = 2;
@@ -95,7 +97,7 @@
             // 
             // btnRadiUCreate
             // 
-            this.btnRadiUCreate.Location = new System.Drawing.Point(175, 156);
+            this.btnRadiUCreate.Location = new System.Drawing.Point(25, 157);
             this.btnRadiUCreate.Name = "btnRadiUCreate";
             this.btnRadiUCreate.Size = new System.Drawing.Size(262, 33);
             this.btnRadiUCreate.TabIndex = 5;
@@ -105,7 +107,7 @@
             // 
             // btnRadiUGet
             // 
-            this.btnRadiUGet.Location = new System.Drawing.Point(175, 195);
+            this.btnRadiUGet.Location = new System.Drawing.Point(25, 194);
             this.btnRadiUGet.Name = "btnRadiUGet";
             this.btnRadiUGet.Size = new System.Drawing.Size(262, 33);
             this.btnRadiUGet.TabIndex = 6;
@@ -115,7 +117,7 @@
             // 
             // btnJeSefCreate
             // 
-            this.btnJeSefCreate.Location = new System.Drawing.Point(477, 156);
+            this.btnJeSefCreate.Location = new System.Drawing.Point(324, 157);
             this.btnJeSefCreate.Name = "btnJeSefCreate";
             this.btnJeSefCreate.Size = new System.Drawing.Size(262, 33);
             this.btnJeSefCreate.TabIndex = 7;
@@ -125,7 +127,7 @@
             // 
             // btnJeSefGet
             // 
-            this.btnJeSefGet.Location = new System.Drawing.Point(477, 195);
+            this.btnJeSefGet.Location = new System.Drawing.Point(324, 194);
             this.btnJeSefGet.Name = "btnJeSefGet";
             this.btnJeSefGet.Size = new System.Drawing.Size(262, 33);
             this.btnJeSefGet.TabIndex = 8;
@@ -135,7 +137,7 @@
             // 
             // btnRadnikDelete
             // 
-            this.btnRadnikDelete.Location = new System.Drawing.Point(324, 56);
+            this.btnRadnikDelete.Location = new System.Drawing.Point(324, 95);
             this.btnRadnikDelete.Name = "btnRadnikDelete";
             this.btnRadnikDelete.Size = new System.Drawing.Size(262, 33);
             this.btnRadnikDelete.TabIndex = 9;
@@ -173,11 +175,33 @@
             this.btnZasticenObjekatCreate.UseVisualStyleBackColor = true;
             this.btnZasticenObjekatCreate.Click += new System.EventHandler(this.btnZasticenObjekatCreate_Click);
             // 
+            // btnGetZasticeniObjekti
+            // 
+            this.btnGetZasticeniObjekti.Location = new System.Drawing.Point(619, 157);
+            this.btnGetZasticeniObjekti.Name = "btnGetZasticeniObjekti";
+            this.btnGetZasticeniObjekti.Size = new System.Drawing.Size(262, 33);
+            this.btnGetZasticeniObjekti.TabIndex = 13;
+            this.btnGetZasticeniObjekti.Text = "Pribavljanje svih zaštićenih objekata";
+            this.btnGetZasticeniObjekti.UseVisualStyleBackColor = true;
+            this.btnGetZasticeniObjekti.Click += new System.EventHandler(this.btnGetZasticeniObjekti_Click);
+            // 
+            // btnGetZasticeniObjektiUParku
+            // 
+            this.btnGetZasticeniObjektiUParku.Location = new System.Drawing.Point(619, 194);
+            this.btnGetZasticeniObjektiUParku.Name = "btnGetZasticeniObjektiUParku";
+            this.btnGetZasticeniObjektiUParku.Size = new System.Drawing.Size(262, 33);
+            this.btnGetZasticeniObjektiUParku.TabIndex = 14;
+            this.btnGetZasticeniObjektiUParku.Text = "Pribavljanje svih zaštićenih objekata iz jednog parka";
+            this.btnGetZasticeniObjektiUParku.UseVisualStyleBackColor = true;
+            this.btnGetZasticeniObjektiUParku.Click += new System.EventHandler(this.btnGetZasticeniObjektiUParku_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(902, 254);
+            this.Controls.Add(this.btnGetZasticeniObjektiUParku);
+            this.Controls.Add(this.btnGetZasticeniObjekti);
             this.Controls.Add(this.btnZasticenObjekatCreate);
             this.Controls.Add(this.btnGetObjekat);
             this.Controls.Add(this.btnObjekatCreate);
@@ -212,6 +236,8 @@
         private System.Windows.Forms.Button btnObjekatCreate;
         private System.Windows.Forms.Button btnGetObjekat;
         private System.Windows.Forms.Button btnZasticenObjekatCreate;
+        private System.Windows.Forms.Button btnGetZasticeniObjekti;
+        private System.Windows.Forms.Button btnGetZasticeniObjektiUParku;
     }
 }
 
