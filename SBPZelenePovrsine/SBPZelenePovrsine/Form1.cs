@@ -333,6 +333,12 @@ namespace SBPZelenePovrsine
 
                 foreach (RadiU stavka in radi)
                 {
+                    if(ispis == "")
+                    {
+                        Radnik r = stavka.Radnik;
+                        ispis += "Radnik " + r.Ime + " (" + r.ImeRoditelja + ") " + r.Prezime
+                              + " radio je u sledećim parkovima u navedenom periodu:\n\n";
+                    }
                     String rez = stavka.DatumOd.ToShortDateString() + " do ";
                     rez += (stavka.DatumDo == null ? "sada: " : stavka.DatumDo.Value.ToShortDateString() + ": ");
                     rez += stavka.Park.Naziv + ", " + stavka.Park.Opstina + ", " + stavka.Park.ZonaUgrozenosti;
@@ -455,6 +461,12 @@ namespace SBPZelenePovrsine
 
                 foreach(JeSef js in sefovanja)
                 {
+                    if (message == "")
+                    {
+                        Radnik r = js.Radnik;
+                        message += "Radnik " + r.Ime + " (" + r.ImeRoditelja + ") " + r.Prezime
+                                + " bio je šef sledećih parkova u navedenom periodu:\n\n";
+                    }
                     String datumDo = (js.DatumDo != null) ? js.DatumDo.Value.ToShortDateString() : "sada";
                     message += "Od " + js.DatumOd.ToShortDateString() + " do " + datumDo + ": " + js.Park.Naziv + 
                                ", " + js.Park.Opstina + ", " + js.Park.ZonaUgrozenosti + "\n\n";
@@ -532,12 +544,8 @@ namespace SBPZelenePovrsine
             {
                 ISession s = DataLayer.GetSession();
 
-                String NazivParka = "Tvrđava"; // "Dečiji park u naselju Stevan Sinđelić" ili "Park Čair"
-                String Opstina = "Crveni krst"; // "Crveni krst" ili "Medijana"
-
-                //Park park = s.Query<Park>()
-                //             .Where(p => p.Naziv == NazivParka && p.Opstina == Opstina)
-                //             .FirstOrDefault();
+                String NazivParka = "Tvrđava"; // ili "Dečiji park u naselju Stevan Sinđelić" ili "Park Čair"
+                String Opstina = "Crveni krst"; // ili "Crveni krst" ili "Medijana"
 
                 List<Objekat> objekti = s.Query<Objekat>()
                                          .Where(o => o.Park.Naziv == NazivParka && o.Park.Opstina == Opstina)
@@ -546,7 +554,6 @@ namespace SBPZelenePovrsine
 
                 String rez = "Objekti u parku " + NazivParka + ", u opštini " + Opstina + "\n\n\n";
 
-                //foreach (Objekat o in park.Objekti)
                 foreach(Objekat o in objekti)
                 {
                     rez += o.RedniBroj + ": ";
@@ -764,8 +771,7 @@ namespace SBPZelenePovrsine
                 // 2. "Park Svetog Save" i "Medijana"
 
                 List<Zasticen> zasticeni = s.Query<Zasticen>()
-                                            .Where(z => z.Objekat.Park.Naziv == nazivParka
-                                            && z.Objekat.Park.Opstina == nazivOpstine)
+                                            .Where(z => z.Objekat.Park.Naziv == nazivParka && z.Objekat.Park.Opstina == nazivOpstine)
                                             .OrderBy(z => z.Objekat.RedniBroj)
                                             .ToList();
 
