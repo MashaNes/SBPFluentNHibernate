@@ -44,6 +44,7 @@
             this.btnGetZasticeniObjekti = new System.Windows.Forms.Button();
             this.btnGetZasticeniObjektiUParku = new System.Windows.Forms.Button();
             this.btnGetParkInfo = new System.Windows.Forms.Button();
+            this.btnGetParkZasticeniInfo = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnZelenePovrsineCreate
@@ -198,7 +199,7 @@
             // 
             // btnGetParkInfo
             // 
-            this.btnGetParkInfo.Location = new System.Drawing.Point(243, 257);
+            this.btnGetParkInfo.Location = new System.Drawing.Point(25, 255);
             this.btnGetParkInfo.Name = "btnGetParkInfo";
             this.btnGetParkInfo.Size = new System.Drawing.Size(409, 33);
             this.btnGetParkInfo.TabIndex = 15;
@@ -206,11 +207,22 @@
             this.btnGetParkInfo.UseVisualStyleBackColor = true;
             this.btnGetParkInfo.Click += new System.EventHandler(this.btnGetParkInfo_Click);
             // 
+            // btnGetParkZasticeniInfo
+            // 
+            this.btnGetParkZasticeniInfo.Location = new System.Drawing.Point(499, 253);
+            this.btnGetParkZasticeniInfo.Name = "btnGetParkZasticeniInfo";
+            this.btnGetParkZasticeniInfo.Size = new System.Drawing.Size(370, 35);
+            this.btnGetParkZasticeniInfo.TabIndex = 16;
+            this.btnGetParkZasticeniInfo.Text = "Pribavljanje podataka o svim parkovima sa zaštićenim objektima";
+            this.btnGetParkZasticeniInfo.UseVisualStyleBackColor = true;
+            this.btnGetParkZasticeniInfo.Click += new System.EventHandler(this.btnGetParkZasticeniInfo_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(902, 316);
+            this.Controls.Add(this.btnGetParkZasticeniInfo);
             this.Controls.Add(this.btnGetParkInfo);
             this.Controls.Add(this.btnGetZasticeniObjektiUParku);
             this.Controls.Add(this.btnGetZasticeniObjekti);
@@ -251,6 +263,7 @@
         private System.Windows.Forms.Button btnGetZasticeniObjekti;
         private System.Windows.Forms.Button btnGetZasticeniObjektiUParku;
         private System.Windows.Forms.Button btnGetParkInfo;
+        private System.Windows.Forms.Button btnGetParkZasticeniInfo;
     }
 }
 

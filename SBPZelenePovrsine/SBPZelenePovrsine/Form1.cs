@@ -911,5 +911,41 @@ namespace SBPZelenePovrsine
                 MessageBox.Show(exc.Message);
             }
         }
+
+        private void btnGetParkZasticeniInfo_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+
+                IList<Park> parkovi = s.Query<Zasticen>()
+                                       .Select(z => z.Objekat.Park)
+                                       .Distinct().ToList();
+
+                string message = "";
+
+                foreach(Park p in parkovi)
+                {
+                    int drveceCount = p.Objekti.Where(o => o.GetType() == typeof(Drvo) && o.Zasticen != null).Count();
+                    int skulptureCount = p.Objekti.Where(o => o.GetType() == typeof(Skulptura)).Count();
+                    int spomeniciCount = p.Objekti.Where(o => o.GetType() == typeof(Spomenik)).Count();
+
+                    int totalCount = drveceCount + skulptureCount + spomeniciCount;
+
+                    message += "Park \"" + p.Naziv + "\", u opštini \"" + p.Opstina + 
+                               "\", u kome broj zaštićenih objekata iznosi " + totalCount + ":\n" + 
+                               "Drveće: " + drveceCount + ".\n" + 
+                               "Skulpture: " + skulptureCount + ".\n" +
+                               "Spomenici: " + spomeniciCount + ".\n\n\n";
+                }
+
+                s.Close();
+                MessageBox.Show(message);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }
