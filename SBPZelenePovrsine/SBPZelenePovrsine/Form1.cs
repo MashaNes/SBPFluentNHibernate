@@ -809,5 +809,107 @@ namespace SBPZelenePovrsine
             }
 
         }
+
+        private void btnGetParkInfo_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+
+                string nazivParka = "Tvrđava";
+                string nazivOpstine = "Crveni krst";
+
+                Park p = s.Query<Park>()
+                          .Where(x => x.Naziv == nazivParka && x.Opstina == nazivOpstine)
+                          .FirstOrDefault();
+
+                String ispis = "Park " + p.Naziv + " u opštini " + p.Opstina + ":\n\n";
+                ispis += "Radnici koji trenutno rade u tom parku:\n";
+
+                List<RadiU> radiU = p.Radnici.Where(x => x.DatumDo == null).ToList();
+
+                foreach (RadiU stavka in radiU)
+                {
+                    ispis += stavka.Radnik.BrRadneKnjizice + " " + stavka.Radnik.Ime + " ("
+                          + stavka.Radnik.ImeRoditelja + ") " + stavka.Radnik.Prezime
+                          + " počeo sa radom " + stavka.DatumOd.ToShortDateString() + "\n";
+                }
+
+                ispis += "\nŠef parka je ";
+                JeSef trenutniSef = p.Sefovi.Where(x => x.DatumDo == null).FirstOrDefault();
+                ispis += trenutniSef.Radnik.Ime + " (" + trenutniSef.Radnik.ImeRoditelja + ") "
+                      + trenutniSef.Radnik.Prezime + " " + trenutniSef.Radnik.BrRadneKnjizice + "\n\n";
+
+                ispis += "Objekti koji se nalaze u parku:\n";
+                List<Objekat> objektiSorted = p.Objekti.OrderBy(x => x.RedniBroj).ToList();
+
+                foreach (Objekat o in objektiSorted)
+                {
+                    ispis += o.RedniBroj + ": ";
+                    if (o.GetType() == typeof(Klupa))
+                    {
+                        ispis += "Klupa";
+                    }
+                    else if (o.GetType() == typeof(Fontana))
+                    {
+                        ispis += "Fontana";
+                    }
+                    else if (o.GetType() == typeof(Svetiljka))
+                    {
+                        ispis += "Svetiljka";
+                    }
+                    else if (o.GetType() == typeof(Igraliste))
+                    {
+                        Igraliste i = o as Igraliste;
+                        ispis += "Igralište " + (i.BrojIgracaka == null ? "" : "sa " + i.BrojIgracaka + " igračaka ")
+                              + "za decu od " + i.StarostDeceOd + " do " + i.StarostDeceDo + " godina";
+                    }
+                    else if (o.GetType() == typeof(Spomenik))
+                    {
+                        Spomenik sp = o as Spomenik;
+                        Zasticen spZastita = sp.Zasticen;
+                        ispis += "Spomenik, zaštićen datuma " + spZastita.DatumStavljanja.ToShortDateString()
+                              + " od strane institucije \"" + spZastita.Institucija
+                              + "\", uz opis: \"" + spZastita.Opis
+                              + "\". Godišnja novčana naknada za potrebe zaštite ovog spomenika iznosi "
+                              + spZastita.NovcanaNaknada + " dinara.";
+                    }
+                    else if (o.GetType() == typeof(Skulptura))
+                    {
+                        Skulptura sk = o as Skulptura;
+                        Zasticen skZastita = sk.Zasticen;
+                        ispis += "Skulptura, zaštićena datuma " + skZastita.DatumStavljanja.ToShortDateString()
+                              + " od strane institucije \"" + skZastita.Institucija
+                              + "\", uz opis: \"" + skZastita.Opis
+                              + "\". Godišnja novčana naknada za potrebe zaštite ove skulpture iznosi "
+                              + skZastita.NovcanaNaknada + " dinara.";
+                    }
+                    else if (o.GetType() == typeof(Drvo))
+                    {
+                        Drvo d = o as Drvo;
+                        Zasticen dZastita = d.Zasticen;
+
+                        ispis += "Drvo, vrste " + d.Vrsta
+                              + (d.ObimDebla == null ? "" : ", obima debla " + d.ObimDebla + " metara")
+                              + (d.PovrsinaPokrivanja == null ? "" : ", površine pokrivanja " + d.PovrsinaPokrivanja + " metara")
+                              + (d.VisinaKrosnje == null ? "" : ", visine krošnje " + d.VisinaKrosnje + " metara")
+                              + (d.DatumSadnje == null ? "" : " , posađeno datuma " + d.DatumSadnje.Value.ToShortDateString()) + ".";
+                        if (dZastita != null)
+                            ispis += " Drvo je zaštićeno datuma " + dZastita.DatumStavljanja.ToShortDateString()
+                                  + " od strane institucije \"" + dZastita.Institucija
+                                  + "\", uz opis: \"" + dZastita.Opis
+                                  + "\". Godišnja novčana naknada za potrebe zaštite ovog drveta iznosi "
+                                  + dZastita.NovcanaNaknada + " dinara.";
+                    }
+                    ispis += "\n";
+                }
+
+                MessageBox.Show(ispis);
+            }
+            catch(Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
+        }
     }
 }

@@ -43,6 +43,7 @@
             this.btnZasticenObjekatCreate = new System.Windows.Forms.Button();
             this.btnGetZasticeniObjekti = new System.Windows.Forms.Button();
             this.btnGetZasticeniObjektiUParku = new System.Windows.Forms.Button();
+            this.btnGetParkInfo = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnZelenePovrsineCreate
@@ -195,11 +196,22 @@
             this.btnGetZasticeniObjektiUParku.UseVisualStyleBackColor = true;
             this.btnGetZasticeniObjektiUParku.Click += new System.EventHandler(this.btnGetZasticeniObjektiUParku_Click);
             // 
+            // btnGetParkInfo
+            // 
+            this.btnGetParkInfo.Location = new System.Drawing.Point(243, 257);
+            this.btnGetParkInfo.Name = "btnGetParkInfo";
+            this.btnGetParkInfo.Size = new System.Drawing.Size(409, 33);
+            this.btnGetParkInfo.TabIndex = 15;
+            this.btnGetParkInfo.Text = "Pribavljanje svih podataka vezanih za jedan park";
+            this.btnGetParkInfo.UseVisualStyleBackColor = true;
+            this.btnGetParkInfo.Click += new System.EventHandler(this.btnGetParkInfo_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(902, 254);
+            this.ClientSize = new System.Drawing.Size(902, 316);
+            this.Controls.Add(this.btnGetParkInfo);
             this.Controls.Add(this.btnGetZasticeniObjektiUParku);
             this.Controls.Add(this.btnGetZasticeniObjekti);
             this.Controls.Add(this.btnZasticenObjekatCreate);
@@ -238,6 +250,7 @@
         private System.Windows.Forms.Button btnZasticenObjekatCreate;
         private System.Windows.Forms.Button btnGetZasticeniObjekti;
         private System.Windows.Forms.Button btnGetZasticeniObjektiUParku;
+        private System.Windows.Forms.Button btnGetParkInfo;
     }
 }
 
