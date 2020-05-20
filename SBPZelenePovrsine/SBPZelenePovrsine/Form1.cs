@@ -12,9 +12,9 @@ using SBPZelenePovrsine.Entiteti;
 
 namespace SBPZelenePovrsine
 {
-    public partial class Form1 : Form
+    public partial class frmZelenePovrsine : Form
     {
-        public Form1()
+        public frmZelenePovrsine()
         {
             InitializeComponent();
         }
@@ -222,9 +222,13 @@ namespace SBPZelenePovrsine
                 IQuery q = s.CreateQuery("select min(r.BrRadneKnjizice) from Radnik r");
                 string brKnjizice = q.UniqueResult<string>();
 
-                Radnik radnik = s.Query<Radnik>()
-                                 .Where(r => r.BrRadneKnjizice == brKnjizice)
-                                 .SingleOrDefault();
+                if(brKnjizice == "110" || brKnjizice == "120")
+                {
+                    q = s.CreateQuery("select max(r.BrRadneKnjizice) from Radnik r");
+                    brKnjizice = q.UniqueResult<string>();
+                }
+
+                Radnik radnik = s.Get<Radnik>(brKnjizice);
 
                 s.Delete(radnik);
                 s.Flush();

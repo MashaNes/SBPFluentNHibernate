@@ -1,6 +1,6 @@
 ﻿namespace SBPZelenePovrsine
 {
-    partial class Form1
+    partial class frmZelenePovrsine
     {
         /// <summary>
         /// Required designer variable.
@@ -199,9 +199,9 @@
             // 
             // btnGetParkInfo
             // 
-            this.btnGetParkInfo.Location = new System.Drawing.Point(25, 255);
+            this.btnGetParkInfo.Location = new System.Drawing.Point(62, 255);
             this.btnGetParkInfo.Name = "btnGetParkInfo";
-            this.btnGetParkInfo.Size = new System.Drawing.Size(409, 33);
+            this.btnGetParkInfo.Size = new System.Drawing.Size(370, 33);
             this.btnGetParkInfo.TabIndex = 15;
             this.btnGetParkInfo.Text = "Pribavljanje svih podataka vezanih za jedan park";
             this.btnGetParkInfo.UseVisualStyleBackColor = true;
@@ -209,19 +209,19 @@
             // 
             // btnGetParkZasticeniInfo
             // 
-            this.btnGetParkZasticeniInfo.Location = new System.Drawing.Point(499, 253);
+            this.btnGetParkZasticeniInfo.Location = new System.Drawing.Point(473, 255);
             this.btnGetParkZasticeniInfo.Name = "btnGetParkZasticeniInfo";
-            this.btnGetParkZasticeniInfo.Size = new System.Drawing.Size(370, 35);
+            this.btnGetParkZasticeniInfo.Size = new System.Drawing.Size(370, 33);
             this.btnGetParkZasticeniInfo.TabIndex = 16;
             this.btnGetParkZasticeniInfo.Text = "Pribavljanje podataka o svim parkovima sa zaštićenim objektima";
             this.btnGetParkZasticeniInfo.UseVisualStyleBackColor = true;
             this.btnGetParkZasticeniInfo.Click += new System.EventHandler(this.btnGetParkZasticeniInfo_Click);
             // 
-            // Form1
+            // frmZelenePovrsine
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(902, 316);
+            this.ClientSize = new System.Drawing.Size(902, 305);
             this.Controls.Add(this.btnGetParkZasticeniInfo);
             this.Controls.Add(this.btnGetParkInfo);
             this.Controls.Add(this.btnGetZasticeniObjektiUParku);
@@ -239,8 +239,12 @@
             this.Controls.Add(this.btnGetRadnici);
             this.Controls.Add(this.btnGetZelenePovrsine);
             this.Controls.Add(this.btnZelenePovrsineCreate);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(918, 344);
+            this.MinimumSize = new System.Drawing.Size(918, 344);
+            this.Name = "frmZelenePovrsine";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Zelene površine";
             this.ResumeLayout(false);
 
         }
