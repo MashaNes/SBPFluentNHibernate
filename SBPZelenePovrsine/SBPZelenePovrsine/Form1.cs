@@ -195,13 +195,7 @@ namespace SBPZelenePovrsine
                               .FirstOrDefault();
                 String adresa = t.AdresaZgrade;
 
-                s.Close();
-
-                s = DataLayer.GetSession();
-
-                ZelenaPovrsina z = s.Get<ZelenaPovrsina>(t.Id);
-
-                s.Delete(z);
+                s.Delete(t);
                 s.Flush();
                 s.Close();
                 MessageBox.Show("Uspešno obrisan travnjak na adresi '" + adresa + "'");
@@ -620,6 +614,7 @@ namespace SBPZelenePovrsine
                 }
 
                 MessageBox.Show(rez);
+                s.Close();
             }
             catch(Exception exc)
             {
@@ -631,7 +626,6 @@ namespace SBPZelenePovrsine
         {
             try
             {
-                
                 ISession s = DataLayer.GetSession();
 
                 Zasticen zastitaSpomenik = new Zasticen();
@@ -657,8 +651,8 @@ namespace SBPZelenePovrsine
                 String Opstina = "Crveni krst";
 
                 Park parkTvrdjava = s.Query<Park>()
-                                           .Where(p => p.Naziv == nazivParka && p.Opstina == Opstina)
-                                           .Single();
+                                     .Where(p => p.Naziv == nazivParka && p.Opstina == Opstina)
+                                     .Single();
 
                 nazivParka = "Park Čair";
                 Opstina = "Medijana";
@@ -702,9 +696,6 @@ namespace SBPZelenePovrsine
                 s.Update(parkTvrdjava);
                 s.Update(parkCair);
 
-                s.Save(spomenik);
-                s.Save(skulptura);
-                s.Save(drvo);
                 s.Flush();
                 s.Close();
 
@@ -908,6 +899,7 @@ namespace SBPZelenePovrsine
                     ispis += "\n";
                 }
 
+                s.Close();
                 MessageBox.Show(ispis);
             }
             catch(Exception exc)
